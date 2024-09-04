@@ -30,12 +30,7 @@ const Recipes = () => {
 
     return useMemo(
         () => (
-            <Accordion
-                title="Generierte Rezepte"
-                isDefaultOpen
-                key="recipes"
-                isDisabled={recipes.length === 0}
-            >
+            <Accordion title="Generierte Rezepte" isDefaultOpen key="recipes">
                 <AccordionContent>
                     Hier findest du eine Sammlung von Rezepten, die mithilfe
                     einer Künstlichen Intelligenz generiert wurden. Bitte
@@ -48,7 +43,7 @@ const Recipes = () => {
                 <AccordionGroup>{content}</AccordionGroup>
             </Accordion>
         ),
-        [content, recipes.length]
+        [content]
     );
 };
 

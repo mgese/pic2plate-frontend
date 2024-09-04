@@ -11,9 +11,9 @@ export const getAiRecipes = async (
 ): Promise<ApiFunctionResult<IRecipe[]>> => {
     const response = await request<IRecipe[], GetAiRecipesBody>({
         method: 'POST',
-        url: '',
+        url: 'https://run.chayns.codes/',
         body: { imageUrl },
-        route: ``,
+        route: `2f3d0fbc/recipe`,
     });
 
     return { data: response.data, status: response.status };
