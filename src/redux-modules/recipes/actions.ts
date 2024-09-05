@@ -4,6 +4,7 @@ import {
     addFavouriteRecipes,
     addRecipes,
     removeFavouriteRecipe,
+    setLoadingState,
     updateRecipe,
 } from './slice';
 import { getFavouriteRecipes } from '../../api/favourite-recipes/get';
@@ -23,13 +24,20 @@ export const loadFavouriteRecipes =
     };
 
 export const loadRecipes =
-    (imageUrl: string) =>
+    (imageUrl: string[]) =>
     async (dispatch: AppDispatch): Promise<void> => {
+        dispatch(setLoadingState('PENDING'));
+
         const { status, data } = await getAiRecipes(imageUrl);
 
         if (status === 200 && data) {
+            dispatch(setLoadingState('SUCCESS'));
             dispatch(addRecipes(data));
+
+            return;
         }
+
+        dispatch(setLoadingState('ERROR'));
     };
 
 export const uploadImage =

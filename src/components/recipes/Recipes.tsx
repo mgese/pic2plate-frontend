@@ -3,13 +3,18 @@ import {
     Accordion,
     AccordionContent,
     AccordionGroup,
+    SmallWaitCursor,
 } from '@chayns-components/core';
 import Recipe from '../shared/recipe/Recipe';
 import { useAppSelector } from '../../hooks/redux';
-import { selectRecipes } from '../../redux-modules/recipes/selectors';
+import {
+    selectLoadingState,
+    selectRecipes,
+} from '../../redux-modules/recipes/selectors';
 
 const Recipes = () => {
     const recipes = useAppSelector(selectRecipes);
+    const loadingState = useAppSelector(selectLoadingState);
 
     const content = useMemo(() => {
         const items: ReactElement[] = [];
@@ -41,9 +46,31 @@ const Recipes = () => {
                     angepasst werden.
                 </AccordionContent>
                 <AccordionGroup>{content}</AccordionGroup>
+                <AccordionContent>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <SmallWaitCursor
+                            shouldHideWaitCursor={[
+                                'NONE',
+                                'ERROR',
+                                'SUCCESS',
+                            ].includes(loadingState)}
+                        />
+                    </div>
+                    {loadingState === 'ERROR' && (
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            Beim Generieren der Gerichte ist ein Fehler
+                            aufgetreten.
+                        </div>
+                    )}
+                </AccordionContent>
             </Accordion>
         ),
-        [content]
+        [content, loadingState]
     );
 };
 

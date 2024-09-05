@@ -3,11 +3,11 @@ import { ApiFunctionResult } from '../../types/api';
 import { IRecipe } from '../../types/Recipe';
 
 interface GetAiRecipesBody {
-    imageUrl: string;
+    imageUrl: string[];
 }
 
 export const getAiRecipes = async (
-    imageUrl: string
+    imageUrl: string[]
 ): Promise<ApiFunctionResult<IRecipe[]>> => {
     const response = await request<IRecipe[], GetAiRecipesBody>({
         method: 'POST',

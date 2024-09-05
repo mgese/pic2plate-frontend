@@ -1,15 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { IRecipe } from '../../types/Recipe';
-import recipes from '../../components/recipes/Recipes';
+
+export type LoadingState = 'NONE' | 'PENDING' | 'SUCCESS' | 'ERROR';
 
 interface RecipeState {
     recipes: IRecipe[];
     favouriteRecipes: IRecipe[];
+    loadingState: LoadingState;
 }
 
 const initialState: RecipeState = {
     recipes: [],
     favouriteRecipes: [],
+    loadingState: 'NONE',
 };
 
 const recipeSlice = createSlice({
@@ -21,6 +24,9 @@ const recipeSlice = createSlice({
         },
         addFavouriteRecipes(state, { payload }: PayloadAction<IRecipe[]>) {
             state.favouriteRecipes = [...state.favouriteRecipes, ...payload];
+        },
+        setLoadingState(state, { payload }: PayloadAction<LoadingState>) {
+            state.loadingState = payload;
         },
         addFavouriteRecipe(state, { payload }: PayloadAction<IRecipe>) {
             if (
@@ -65,6 +71,7 @@ export const {
     addFavouriteRecipe,
     addFavouriteRecipes,
     removeFavouriteRecipe,
+    setLoadingState,
 } = recipeSlice.actions;
 
 export const recipeReducer = recipeSlice.reducer;

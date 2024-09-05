@@ -10,6 +10,9 @@ export const selectRecipes = (state: RootState): IRecipe[] =>
 export const selectFavouriteRecipes = (state: RootState): IRecipe[] =>
     selectRecipeState(state).favouriteRecipes;
 
+export const selectLoadingState = (state: RootState) =>
+    selectRecipeState(state).loadingState;
+
 export const selectIsRecipeFavourite = (id: number) =>
     createSelector([selectFavouriteRecipes], (favouriteRecipes) =>
         favouriteRecipes.some((recipe: IRecipe) => recipe.id === id)
