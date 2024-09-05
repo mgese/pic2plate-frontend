@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
-import React, { ChangeEvent, useCallback } from 'react';
+import React, { ChangeEvent, useCallback, useMemo } from 'react';
 import {
     Accordion,
     AccordionContent,
     Checkbox,
+    Icon,
     Input,
 } from '@chayns-components/core';
 import { useAppDispatch } from '../../hooks/redux';
@@ -35,96 +36,120 @@ const Preferences = () => {
         [dispatch]
     );
 
-    return (
-        <Accordion title="Präferenzen" key="preferences">
-            <AccordionContent>
-                <div className="preferences">
-                    <div>
-                        <b>Unverträglichkeiten</b>
+    const rightElement = useMemo(
+        () => <Icon icons={[`fas fa-stars`]} size={20} />,
+        []
+    );
+
+    return useMemo(
+        () => (
+            <Accordion
+                title="Präferenzen"
+                key="preferences"
+                rightElement={rightElement}
+            >
+                <AccordionContent>
+                    <div className="preferences">
                         <div>
-                            <Checkbox
-                                onChange={(event) =>
-                                    handleCheck(
-                                        event.target.checked,
+                            <b>Unverträglichkeiten</b>
+                            <div>
+                                <Checkbox
+                                    onChange={(event) =>
+                                        handleCheck(
+                                            event.target.checked,
+                                            'Laktoseintoleranz'
+                                        )
+                                    }
+                                    isChecked={keys.includes(
                                         'Laktoseintoleranz'
-                                    )
-                                }
-                                isChecked={keys.includes('Laktoseintoleranz')}
-                            >
-                                Laktoseintoleranz
-                            </Checkbox>
-                            <Checkbox
-                                onChange={(event) =>
-                                    handleCheck(
-                                        event.target.checked,
+                                    )}
+                                >
+                                    Laktoseintoleranz
+                                </Checkbox>
+                                <Checkbox
+                                    onChange={(event) =>
+                                        handleCheck(
+                                            event.target.checked,
+                                            'Fuctoseintoleranz'
+                                        )
+                                    }
+                                    isChecked={keys.includes(
                                         'Fuctoseintoleranz'
-                                    )
-                                }
-                                isChecked={keys.includes('Fuctoseintoleranz')}
-                            >
-                                Fuctoseintoleranz
-                            </Checkbox>
-                            <Checkbox
-                                onChange={(event) =>
-                                    handleCheck(
-                                        event.target.checked,
+                                    )}
+                                >
+                                    Fuctoseintoleranz
+                                </Checkbox>
+                                <Checkbox
+                                    onChange={(event) =>
+                                        handleCheck(
+                                            event.target.checked,
+                                            'Glutenintoleranz'
+                                        )
+                                    }
+                                    isChecked={keys.includes(
                                         'Glutenintoleranz'
-                                    )
-                                }
-                                isChecked={keys.includes('Glutenintoleranz')}
-                            >
-                                Glutenintoleranz
-                            </Checkbox>
+                                    )}
+                                >
+                                    Glutenintoleranz
+                                </Checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <b>Ernährung</b>
                         <div>
-                            <Checkbox
-                                onChange={(event) =>
-                                    handleCheck(
-                                        event.target.checked,
-                                        'Vegetarisch'
-                                    )
-                                }
-                                isChecked={keys.includes('Vegetarisch')}
-                            >
-                                Vegetarisch
-                            </Checkbox>
-                            <Checkbox
-                                onChange={(event) =>
-                                    handleCheck(event.target.checked, 'Vegan')
-                                }
-                                isChecked={keys.includes('Vegan')}
-                            >
-                                Vegan
-                            </Checkbox>
+                            <b>Ernährung</b>
+                            <div>
+                                <Checkbox
+                                    onChange={(event) =>
+                                        handleCheck(
+                                            event.target.checked,
+                                            'Vegetarisch'
+                                        )
+                                    }
+                                    isChecked={keys.includes('Vegetarisch')}
+                                >
+                                    Vegetarisch
+                                </Checkbox>
+                                <Checkbox
+                                    onChange={(event) =>
+                                        handleCheck(
+                                            event.target.checked,
+                                            'Vegan'
+                                        )
+                                    }
+                                    isChecked={keys.includes('Vegan')}
+                                >
+                                    Vegan
+                                </Checkbox>
+                            </div>
                         </div>
-                    </div>
-                    <div>
-                        <b>Zeit</b>
                         <div>
-                            <Checkbox
-                                onChange={(event) =>
-                                    handleCheck(event.target.checked, 'Schnell')
-                                }
-                                isChecked={keys.includes('Schnell')}
-                            >
-                                Schnell
-                            </Checkbox>
+                            <b>Zeit</b>
+                            <div>
+                                <Checkbox
+                                    onChange={(event) =>
+                                        handleCheck(
+                                            event.target.checked,
+                                            'Schnell'
+                                        )
+                                    }
+                                    isChecked={keys.includes('Schnell')}
+                                >
+                                    Schnell
+                                </Checkbox>
+                            </div>
+                        </div>
+                        <div>
+                            <b>Anlass</b>
+                            <Input
+                                placeholder="Grillparty, ..."
+                                value={value}
+                                onChange={handleChange}
+                            />
                         </div>
                     </div>
-                    <div>
-                        <b>Anlass</b>
-                        <Input
-                            placeholder="Grillparty, ..."
-                            value={value}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
-            </AccordionContent>
-        </Accordion>
+                </AccordionContent>
+            </Accordion>
+        ),
+        [handleChange, handleCheck, keys, rightElement, value]
     );
 };
 

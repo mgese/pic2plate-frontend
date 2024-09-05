@@ -3,6 +3,7 @@ import {
     Accordion,
     AccordionContent,
     AccordionGroup,
+    Icon,
     SmallWaitCursor,
 } from '@chayns-components/core';
 import Recipe from '../shared/recipe/Recipe';
@@ -33,9 +34,19 @@ const Recipes = () => {
         return items;
     }, [recipes]);
 
+    const rightElement = useMemo(
+        () => <Icon icons={[`fas fa-utensils`]} size={20} />,
+        []
+    );
+
     return useMemo(
         () => (
-            <Accordion title="Generierte Rezepte" isDefaultOpen key="recipes">
+            <Accordion
+                title="Generierte Rezepte"
+                isDefaultOpen
+                key="recipes"
+                rightElement={rightElement}
+            >
                 <AccordionContent>
                     Hier findest du eine Sammlung von Rezepten, die mithilfe
                     einer Künstlichen Intelligenz generiert wurden. Bitte
@@ -70,7 +81,7 @@ const Recipes = () => {
                 </AccordionContent>
             </Accordion>
         ),
-        [content, loadingState]
+        [content, loadingState, rightElement]
     );
 };
 

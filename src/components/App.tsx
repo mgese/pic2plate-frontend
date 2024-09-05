@@ -16,9 +16,9 @@ const App = () => {
 
     return (
         <div>
-            <FileUpload />
             <AccordionGroup>
                 <Preferences />
+                <FileUpload />
                 <FavouriteRecipes />
                 <Recipes />
             </AccordionGroup>

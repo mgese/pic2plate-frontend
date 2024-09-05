@@ -1,6 +1,6 @@
 import React, { useCallback, useMemo, useState } from 'react';
 import './fileUpload.scss';
-import { Button, FileInput } from '@chayns-components/core';
+import { Button, ContentCard, FileInput } from '@chayns-components/core';
 import { loadRecipes, uploadImage } from '../../redux-modules/recipes/actions';
 import { useAppDispatch } from '../../hooks/redux';
 
@@ -35,18 +35,22 @@ const FileUpload = () => {
     return useMemo(
         () => (
             <div className="file-upload">
-                <FileInput
-                    fileSelectionPlaceholder="Bild hochladen"
-                    onAdd={handleAdd}
-                />
-                <div className="file-upload__button">
-                    <Button
-                        onClick={handleButtonClick}
-                        isDisabled={imageUrls.length === 0}
-                    >
-                        Generieren
-                    </Button>
-                </div>
+                <ContentCard>
+                    <div className="file-upload__content">
+                        <FileInput
+                            fileSelectionPlaceholder="Bild hochladen"
+                            onAdd={handleAdd}
+                        />
+                        <div className="file-upload__content__button">
+                            <Button
+                                onClick={handleButtonClick}
+                                isDisabled={imageUrls.length === 0}
+                            >
+                                Generieren
+                            </Button>
+                        </div>
+                    </div>
+                </ContentCard>
             </div>
         ),
         [handleAdd, handleButtonClick, imageUrls.length]

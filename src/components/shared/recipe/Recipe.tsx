@@ -23,7 +23,7 @@ const Recipe = ({ recipe, title, id }: IRecipe) => {
     const rightElement: ReactNode = useMemo(
         () => (
             <Icon
-                icons={[`${isFavourite ? 'fas' : 'far'} fa-star`]}
+                icons={[`${isFavourite ? 'fas' : 'far'} fa-bookmark`]}
                 size={20}
                 onClick={handleIconClick}
                 color={
