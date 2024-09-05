@@ -1,4 +1,4 @@
-import { AppDispatch } from '../store';
+import { AppDispatch, GetAppState } from '../store';
 import { IRecipe } from '../../types/Recipe';
 import {
     addFavouriteRecipes,
@@ -12,6 +12,7 @@ import { getAiRecipes } from '../../api/recipes/get';
 import { postRecipe } from '../../api/favourite-recipes/post';
 import { deleteRecipe } from '../../api/favourite-recipes/delete';
 import { postImage } from '../../api/image/post';
+import { selectKeys, selectValue } from './selectors';
 
 export const loadFavouriteRecipes =
     () =>
@@ -25,10 +26,32 @@ export const loadFavouriteRecipes =
 
 export const loadRecipes =
     (imageUrl: string[]) =>
-    async (dispatch: AppDispatch): Promise<void> => {
+    async (dispatch: AppDispatch, getState: GetAppState): Promise<void> => {
+        const state = getState();
+
+        const keys = selectKeys(state);
+        const value = selectValue(state);
+
         dispatch(setLoadingState('PENDING'));
 
-        const { status, data } = await getAiRecipes(imageUrl);
+        let tags = '';
+
+        switch (true) {
+            case !!keys:
+                tags = keys.join();
+                break;
+            case !!value:
+                tags = value;
+                break;
+            case !!keys && !!value:
+                tags = (keys as string[]).join().concat(', ', value);
+                break;
+            default:
+                tags = '';
+                break;
+        }
+
+        const { status, data } = await getAiRecipes(imageUrl, tags);
 
         if (status === 200 && data) {
             dispatch(setLoadingState('SUCCESS'));
