@@ -1,7 +1,10 @@
 import { getAccessToken, getUser, setWaitCursor } from 'chayns-api';
 import { IS_DEVELOPMENT, IS_QA } from '../constants/environment';
 
-export const BASE_REST_PATH = IS_DEVELOPMENT || IS_QA ? '' : '';
+export const BASE_REST_PATH =
+    IS_DEVELOPMENT || IS_QA
+        ? 'https://pic2plateapi.onrender.com/'
+        : 'https://pic2plateapi.onrender.com/';
 
 interface RequestOptions<Body> {
     accessToken?: string;

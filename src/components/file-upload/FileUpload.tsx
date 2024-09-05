@@ -1,18 +1,17 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import './fileUpload.scss';
-import { FileInput } from '@chayns-components/core';
+import { Button, ContentCard, FileInput } from '@chayns-components/core';
 import { loadRecipes, uploadImage } from '../../redux-modules/recipes/actions';
 import { useAppDispatch } from '../../hooks/redux';
 
 const FileUpload = () => {
     const dispatch = useAppDispatch();
 
-    const onFileAdd = useCallback(
-        (imageUrl: string) => {
-            void dispatch(loadRecipes(imageUrl));
-        },
-        [dispatch]
-    );
+    const [imageUrls, setImageUrls] = useState<string[]>([]);
+
+    const handleButtonClick = useCallback(() => {
+        void dispatch(loadRecipes(imageUrls));
+    }, [dispatch, imageUrls]);
 
     const handleAdd = useCallback(
         (file: File[] | string[]) => {
@@ -27,23 +26,34 @@ const FileUpload = () => {
                     return;
                 }
 
-                onFileAdd(imageUrl);
+                setImageUrls((prevImageUrl) => [...prevImageUrl, imageUrl]);
             });
         },
-        [dispatch, onFileAdd]
+        [dispatch]
     );
 
     return useMemo(
         () => (
             <div className="file-upload">
-                <FileInput
-                    maxFiles={1}
-                    fileSelectionPlaceholder="Bild hochladen"
-                    onAdd={handleAdd}
-                />
+                <ContentCard>
+                    <div className="file-upload__content">
+                        <FileInput
+                            fileSelectionPlaceholder="Bild hochladen"
+                            onAdd={handleAdd}
+                        />
+                        <div className="file-upload__content__button">
+                            <Button
+                                onClick={handleButtonClick}
+                                isDisabled={imageUrls.length === 0}
+                            >
+                                Generieren
+                            </Button>
+                        </div>
+                    </div>
+                </ContentCard>
             </div>
         ),
-        [handleAdd]
+        [handleAdd, handleButtonClick, imageUrls.length]
     );
 };
 

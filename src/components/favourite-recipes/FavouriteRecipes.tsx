@@ -29,15 +29,16 @@ const FavouriteRecipes = () => {
         return items;
     }, [recipes]);
 
-    const rightElement = useMemo(() => {
-        return (
+    const rightElement = useMemo(
+        () => (
             <Icon
-                icons={[`fas fa-star`]}
+                icons={[`fas fa-bookmark`]}
                 size={20}
                 color="var(--chayns-color--yellow-2)"
             />
-        );
-    }, []);
+        ),
+        []
+    );
 
     return useMemo(
         () => (

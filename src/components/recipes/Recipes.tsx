@@ -3,13 +3,19 @@ import {
     Accordion,
     AccordionContent,
     AccordionGroup,
+    Icon,
+    SmallWaitCursor,
 } from '@chayns-components/core';
 import Recipe from '../shared/recipe/Recipe';
 import { useAppSelector } from '../../hooks/redux';
-import { selectRecipes } from '../../redux-modules/recipes/selectors';
+import {
+    selectLoadingState,
+    selectRecipes,
+} from '../../redux-modules/recipes/selectors';
 
 const Recipes = () => {
     const recipes = useAppSelector(selectRecipes);
+    const loadingState = useAppSelector(selectLoadingState);
 
     const content = useMemo(() => {
         const items: ReactElement[] = [];
@@ -28,9 +34,19 @@ const Recipes = () => {
         return items;
     }, [recipes]);
 
+    const rightElement = useMemo(
+        () => <Icon icons={[`fas fa-utensils`]} size={20} />,
+        []
+    );
+
     return useMemo(
         () => (
-            <Accordion title="Generierte Rezepte" isDefaultOpen key="recipes">
+            <Accordion
+                title="Generierte Rezepte"
+                isDefaultOpen
+                key="recipes"
+                rightElement={rightElement}
+            >
                 <AccordionContent>
                     Hier findest du eine Sammlung von Rezepten, die mithilfe
                     einer Künstlichen Intelligenz generiert wurden. Bitte
@@ -41,9 +57,31 @@ const Recipes = () => {
                     angepasst werden.
                 </AccordionContent>
                 <AccordionGroup>{content}</AccordionGroup>
+                <AccordionContent>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
+                        <SmallWaitCursor
+                            shouldHideWaitCursor={[
+                                'NONE',
+                                'ERROR',
+                                'SUCCESS',
+                            ].includes(loadingState)}
+                        />
+                    </div>
+                    {loadingState === 'ERROR' && (
+                        <div
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}
+                        >
+                            Beim Generieren der Gerichte ist ein Fehler
+                            aufgetreten.
+                        </div>
+                    )}
+                </AccordionContent>
             </Accordion>
         ),
-        [content]
+        [content, loadingState, rightElement]
     );
 };
 
