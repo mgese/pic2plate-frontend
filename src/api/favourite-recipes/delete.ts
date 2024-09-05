@@ -6,7 +6,7 @@ export const deleteRecipe = async (
 ): Promise<ApiFunctionResult<number>> => {
     const response = await request({
         method: 'DELETE',
-        route: `${id}`,
+        route: `recipe/${id}`,
     });
 
     return { status: response.status };

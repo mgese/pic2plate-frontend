@@ -73,14 +73,14 @@ const Preferences = () => {
                                     onChange={(event) =>
                                         handleCheck(
                                             event.target.checked,
-                                            'Fuctoseintoleranz'
+                                            'Fructoseintoleranz'
                                         )
                                     }
                                     isChecked={keys.includes(
-                                        'Fuctoseintoleranz'
+                                        'Fructoseintoleranz'
                                     )}
                                 >
-                                    Fuctoseintoleranz
+                                    Fructoseintoleranz
                                 </Checkbox>
                                 <Checkbox
                                     onChange={(event) =>

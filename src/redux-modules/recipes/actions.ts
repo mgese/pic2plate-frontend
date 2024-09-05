@@ -105,7 +105,9 @@ export const loadPreferences =
         const { status, data } = await getPreferences();
 
         if (status === 200 && data) {
-            dispatch(addKeys(data));
+            const transformedData = data.map(({ name }) => name);
+
+            dispatch(addKeys(transformedData));
         }
     };
 
