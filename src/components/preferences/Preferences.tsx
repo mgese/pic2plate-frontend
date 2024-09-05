@@ -11,6 +11,7 @@ import { useAppDispatch } from '../../hooks/redux';
 import { selectKeys, selectValue } from '../../redux-modules/recipes/selectors';
 import { addKey, removeKey, setValue } from '../../redux-modules/recipes/slice';
 import './preferences.scss';
+import { updatePreferences } from '../../redux-modules/recipes/actions';
 
 const Preferences = () => {
     const dispatch = useAppDispatch();
@@ -25,6 +26,8 @@ const Preferences = () => {
             } else {
                 dispatch(removeKey(key));
             }
+
+            void dispatch(updatePreferences());
         },
         [dispatch]
     );

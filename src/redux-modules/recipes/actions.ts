@@ -2,6 +2,7 @@ import { AppDispatch, GetAppState } from '../store';
 import { IRecipe } from '../../types/Recipe';
 import {
     addFavouriteRecipes,
+    addKeys,
     addRecipes,
     removeFavouriteRecipe,
     setLoadingState,
@@ -13,6 +14,8 @@ import { postRecipe } from '../../api/favourite-recipes/post';
 import { deleteRecipe } from '../../api/favourite-recipes/delete';
 import { postImage } from '../../api/image/post';
 import { selectKeys, selectValue } from './selectors';
+import { getPreferences } from '../../api/preferences/get';
+import { postPreferences } from '../../api/preferences/post';
 
 export const loadFavouriteRecipes =
     () =>
@@ -94,4 +97,24 @@ export const removeRecipe =
         if (status === 200) {
             dispatch(removeFavouriteRecipe(id));
         }
+    };
+
+export const loadPreferences =
+    () =>
+    async (dispatch: AppDispatch): Promise<void> => {
+        const { status, data } = await getPreferences();
+
+        if (status === 200 && data) {
+            dispatch(addKeys(data));
+        }
+    };
+
+export const updatePreferences =
+    () =>
+    async (dispatch: AppDispatch, getState: GetAppState): Promise<void> => {
+        const state = getState();
+
+        const keys = selectKeys(state);
+
+        await postPreferences(keys);
     };

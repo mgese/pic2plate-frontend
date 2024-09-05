@@ -4,7 +4,10 @@ import FileUpload from './file-upload/FileUpload';
 import FavouriteRecipes from './favourite-recipes/FavouriteRecipes';
 import Recipes from './recipes/Recipes';
 import { useAppDispatch } from '../hooks/redux';
-import { loadFavouriteRecipes } from '../redux-modules/recipes/actions';
+import {
+    loadFavouriteRecipes,
+    loadPreferences,
+} from '../redux-modules/recipes/actions';
 import Preferences from './preferences/Preferences';
 
 const App = () => {
@@ -12,6 +15,7 @@ const App = () => {
 
     useEffect(() => {
         void dispatch(loadFavouriteRecipes());
+        void dispatch(loadPreferences());
     }, [dispatch]);
 
     return (

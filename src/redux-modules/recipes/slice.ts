@@ -66,16 +66,19 @@ const recipeSlice = createSlice({
                 return recipe;
             });
         },
-        addKey(state, action: PayloadAction<string>) {
-            if (!state.keys.includes(action.payload)) {
-                state.keys.push(action.payload);
+        addKey(state, { payload }: PayloadAction<string>) {
+            if (!state.keys.includes(payload)) {
+                state.keys.push(payload);
             }
         },
-        removeKey(state, action: PayloadAction<string>) {
-            state.keys = state.keys.filter((key) => key !== action.payload);
+        addKeys(state, { payload }: PayloadAction<string[]>) {
+            state.keys = payload;
         },
-        setValue(state, action: PayloadAction<string>) {
-            state.value = action.payload;
+        removeKey(state, { payload }: PayloadAction<string>) {
+            state.keys = state.keys.filter((key) => key !== payload);
+        },
+        setValue(state, { payload }: PayloadAction<string>) {
+            state.value = payload;
         },
     },
 });
@@ -84,6 +87,7 @@ export const {
     addRecipes,
     updateRecipe,
     addFavouriteRecipe,
+    addKeys,
     addFavouriteRecipes,
     removeFavouriteRecipe,
     addKey,
