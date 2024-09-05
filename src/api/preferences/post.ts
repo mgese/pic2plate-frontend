@@ -1,14 +1,25 @@
+import { getUser } from 'chayns-api';
 import { request } from '../../utils/request';
 import { ApiFunctionResult } from '../../types/api';
 import { IRecipe } from '../../types/Recipe';
 
+interface PostPreferencesBody {
+    personId: string;
+    names: string[];
+}
+
 export const postPreferences = async (
     tags: string[]
 ): Promise<ApiFunctionResult<IRecipe[]>> => {
-    const response = await request<void, string[]>({
+    const user = getUser();
+
+    const response = await request<void, PostPreferencesBody>({
         method: 'POST',
-        body: tags,
-        route: `2f3d0fbc/recipe`,
+        body: {
+            personId: user?.personId ?? '',
+            names: tags,
+        },
+        route: `Preference`,
     });
 
     return { status: response.status };
