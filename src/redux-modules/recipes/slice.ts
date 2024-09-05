@@ -7,12 +7,16 @@ interface RecipeState {
     recipes: IRecipe[];
     favouriteRecipes: IRecipe[];
     loadingState: LoadingState;
+    keys: string[];
+    value: string;
 }
 
 const initialState: RecipeState = {
     recipes: [],
     favouriteRecipes: [],
     loadingState: 'NONE',
+    keys: [],
+    value: '',
 };
 
 const recipeSlice = createSlice({
@@ -62,6 +66,17 @@ const recipeSlice = createSlice({
                 return recipe;
             });
         },
+        addKey(state, action: PayloadAction<string>) {
+            if (!state.keys.includes(action.payload)) {
+                state.keys.push(action.payload);
+            }
+        },
+        removeKey(state, action: PayloadAction<string>) {
+            state.keys = state.keys.filter((key) => key !== action.payload);
+        },
+        setValue(state, action: PayloadAction<string>) {
+            state.value = action.payload;
+        },
     },
 });
 
@@ -71,6 +86,9 @@ export const {
     addFavouriteRecipe,
     addFavouriteRecipes,
     removeFavouriteRecipe,
+    addKey,
+    setValue,
+    removeKey,
     setLoadingState,
 } = recipeSlice.actions;
 

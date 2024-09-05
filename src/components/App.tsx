@@ -5,6 +5,7 @@ import FavouriteRecipes from './favourite-recipes/FavouriteRecipes';
 import Recipes from './recipes/Recipes';
 import { useAppDispatch } from '../hooks/redux';
 import { loadFavouriteRecipes } from '../redux-modules/recipes/actions';
+import Preferences from './preferences/Preferences';
 
 const App = () => {
     const dispatch = useAppDispatch();
@@ -17,6 +18,7 @@ const App = () => {
         <div>
             <FileUpload />
             <AccordionGroup>
+                <Preferences />
                 <FavouriteRecipes />
                 <Recipes />
             </AccordionGroup>
