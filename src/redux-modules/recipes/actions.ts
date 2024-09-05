@@ -1,6 +1,7 @@
 import { AppDispatch, GetAppState } from '../store';
 import { IRecipe } from '../../types/Recipe';
 import {
+    addFavouriteRecipe,
     addFavouriteRecipes,
     addKeys,
     addRecipes,
@@ -86,6 +87,7 @@ export const addRecipe =
 
         if (status === 200 && data) {
             dispatch(updateRecipe({ newId: data, oldId: recipe.id }));
+            dispatch(addFavouriteRecipe({ ...recipe, id: data }));
         }
     };
 
