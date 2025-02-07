@@ -4,17 +4,24 @@
 
 ---
 
-Dies ist ein Frontend-Projekt, das es Benutzern ermöglicht, ein Bild von Lebensmitteln hochzuladen, diese mithilfe von Künstlicher Intelligenz zu analysieren und basierend auf den erkannten Lebensmitteln Rezeptvorschläge zu erhalten. Benutzer können außerdem ihre bevorzugten Rezepte speichern und ihre Präferenzen angeben, um maßgeschneiderte Empfehlungen zu erhalten.
+**Pic2Plate** is a frontend project that allows users to upload an image of food, analyze it using artificial intelligence, and receive recipe suggestions based on the identified ingredients. Users can also save their favorite recipes and set preferences to get tailored recommendations.
 
-## Funktionen
+This project was developed as part of the project days at the **Berufskolleg für Wirtschaft und Verwaltung in Ahaus**, where it achieved **3rd place** in the competition.
 
-- **Bildanalyse**: Der Benutzer kann ein Bild hochladen, das mithilfe von KI analysiert wird, um verschiedene Lebensmittel zu erkennen.
-- **Rezeptvorschläge**: Basierend auf den erkannten Lebensmitteln werden passende Rezepte vorgeschlagen.
-- **Rezepte speichern**: Benutzer können ihre Lieblingsrezepte speichern und später darauf zugreifen.
-- **Präferenzen festlegen**: Benutzer können ihre kulinarischen Vorlieben (z.B. vegetarisch, vegan, glutenfrei etc.) angeben, um personalisierte Rezeptvorschläge zu erhalten.
+## Features
 
-## Technologie-Stack
+- **Image Analysis**: Users can upload a picture, which will be analyzed by AI to identify various food items.
+- **Recipe Suggestions**: Based on the recognized food items, the application provides matching recipe suggestions.
+- **Save Recipes**: Users can save their favorite recipes and access them later.
+- **Set Preferences**: Users can specify their culinary preferences (e.g., vegetarian, vegan, gluten-free) to receive personalized recipe recommendations.
 
-- **React**: Für die Benutzeroberfläche und das Management der Benutzerinteraktionen.
-- **Redux**: Für das zentrale State-Management.
-- **TypeScript**: Für typsicheres JavaScript.
+## Technology Stack
+
+- **React**: For the user interface and managing user interactions.
+- **Redux**: For centralized state management.
+- **TypeScript**: For type-safe JavaScript.
+
+## Live Demo
+
+You can explore the live application here: [Pic2Plate](https://pic2plate.chayns.site/)
+
